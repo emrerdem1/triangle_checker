@@ -7,7 +7,11 @@ import React from 'react';
 
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { parseLengthInput } from './index.helper';
+import {
+  formatSpecialFloatChar,
+  getLengthValue,
+  parseLengthInput,
+} from './index.helper';
 import { TriangleInput } from './index.styled';
 
 interface ITriangleInputProps {
@@ -29,8 +33,7 @@ const TriangleInputView: React.FC<ITriangleInputProps> = ({
   }, [sideLength, setSideLength]);
 
   const updateSideLength = (length: valueType) => {
-    const newLength = length ? length.toString() : '';
-    setSideLength(newLength);
+    setSideLength(getLengthValue(length));
   };
 
   return (
@@ -39,6 +42,7 @@ const TriangleInputView: React.FC<ITriangleInputProps> = ({
       min={1}
       max={99}
       parser={parseLengthInput}
+      formatter={formatSpecialFloatChar}
       value={sideLength}
       onChange={(length) => updateSideLength(length)}
     />
