@@ -1,5 +1,18 @@
 import React from 'react';
+import styled from '@emotion/styled';
+import TriangleScreen from './containers/triangle';
+import InformationView from './components/information';
 
-const App: React.FC = () => null;
+const LayoutDiv = styled.div`
+  padding: 2em;
+  max-width: 1440px;
+`;
+
+const App: React.FC = () => (
+  <LayoutDiv>
+    <InformationView />
+    <TriangleScreen />
+  </LayoutDiv>
+);
 
 export default App;
