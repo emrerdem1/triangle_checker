@@ -7,7 +7,7 @@ export type TriangleTypes = 'equilateral' | 'isosceles' | 'scalene' | 'invalid';
 
 export interface ITriangleState {
   type: TriangleTypes | null;
-  errorMessages: string[] | null;
+  errorMessages: string[];
 }
 
 export type TriangleDataSpec = ITriangleState & TControlState;
@@ -15,7 +15,7 @@ export type TriangleDataSpec = ITriangleState & TControlState;
 export const INITIAL_TRIANGLE_DATA = {
   ...INITIAL_CONTROL_STATE,
   type: null,
-  errorMessages: null,
+  errorMessages: [],
 };
 
 export interface IErrorMessageProps {

@@ -20,30 +20,38 @@ const formatSideLenghts = (sides: TControlState): ITriangleKeyValuePair[] =>
   }));
 
 const hasIssueWithLengths = (sides: TControlState) => {
-  const [A, B, C] = formatSideLenghts(sides);
-  return (
-    A.value > B.value + C.value ||
-    B.value > A.value + C.value ||
-    C.value > A.value + B.value
+  return formatSideLenghts(sides).find((pair, _, pairArray) =>
+    getCertainSideError(pair, pairArray)
   );
+};
+
+const getCertainSideError = (
+  comparedSide: ITriangleKeyValuePair,
+  remainingPairs: ITriangleKeyValuePair[]
+): IErrorMessageProps | false => {
+  const [secondSide, thirdSide] = remainingPairs.filter(
+    (remaining) => remaining.name !== comparedSide.name
+  );
+  if (
+    comparedSide.value >
+    [secondSide, thirdSide].reduce((acc, curr) => acc + curr.value, 0)
+  ) {
+    return {
+      sum: comparedSide.name,
+      addend: secondSide.name,
+      aggregative: thirdSide.name,
+    };
+  }
+  return false;
 };
 
 const getTriangleErrors = (sides: TControlState): ITriangleState => {
   const result: ITriangleState = { type: 'invalid', errorMessages: [] };
 
   formatSideLenghts(sides).forEach((pair, _, pairArray) => {
-    const [secondSide, thirdSide] = pairArray.filter(
-      (remaining) => remaining.name !== pair.name
-    );
-    if (
-      pair.value >
-      [secondSide, thirdSide].reduce((acc, curr) => acc + curr.value, 0)
-    ) {
-      const errorMessage = generateErrorMessage({
-        sum: pair.name,
-        addend: secondSide.name,
-        aggregative: thirdSide.name,
-      });
+    const certainSideError = getCertainSideError(pair, pairArray);
+    if (certainSideError) {
+      const errorMessage = generateErrorMessage(certainSideError);
       result.errorMessages?.push(errorMessage);
     }
   });
@@ -55,11 +63,11 @@ const getValidTriangleType = (sides: TControlState): ITriangleState => {
 
   switch (uniqueTriangleSides.size) {
     case UniqueTriangleSizes.EQUILATERAL:
-      return { type: 'equilateral', errorMessages: null };
+      return { type: 'equilateral', errorMessages: [] };
     case UniqueTriangleSizes.ISOSCELES:
-      return { type: 'isosceles', errorMessages: null };
+      return { type: 'isosceles', errorMessages: [] };
     default:
-      return { type: 'scalene', errorMessages: null };
+      return { type: 'scalene', errorMessages: [] };
   }
 };
 

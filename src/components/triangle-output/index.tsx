@@ -20,7 +20,7 @@ const TriangleOutputView: React.FC<ITriangleOutputProps> = ({
           {triangleData.type}
         </TriangleResultSpan>
       </h3>
-      {hasError && <ErrorMessagesView messages={triangleData.errorMessages!} />}
+      {hasError && <ErrorMessagesView messages={triangleData.errorMessages} />}
     </TriangleOutputDiv>
   );
 };
