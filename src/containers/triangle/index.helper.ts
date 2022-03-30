@@ -6,6 +6,9 @@ import {
   UniqueTriangleSizes,
 } from './index.types';
 
+/**
+ * Generate boilerplate explanation of the cause of errors.
+ */
 const generateErrorMessage = ({
   addend,
   aggregative,
@@ -19,12 +22,9 @@ const formatSideLenghts = (sides: TControlState): ITriangleKeyValuePair[] =>
     value: Number(value),
   }));
 
-const hasIssueWithLengths = (sides: TControlState) => {
-  return formatSideLenghts(sides).find((pair, _, pairArray) =>
-    getCertainSideError(pair, pairArray)
-  );
-};
-
+/**
+ * Compare one side to the given remaining sides to identicate the root of cause.
+ */
 const getCertainSideError = (
   comparedSide: ITriangleKeyValuePair,
   remainingPairs: ITriangleKeyValuePair[]
@@ -33,7 +33,7 @@ const getCertainSideError = (
     (remaining) => remaining.name !== comparedSide.name
   );
   if (
-    comparedSide.value >
+    comparedSide.value >=
     [secondSide, thirdSide].reduce((acc, curr) => acc + curr.value, 0)
   ) {
     return {
@@ -45,6 +45,9 @@ const getCertainSideError = (
   return false;
 };
 
+/**
+ * Get invalid type with error messages indicating which sides caused it.
+ */
 const getTriangleErrors = (sides: TControlState): ITriangleState => {
   const result: ITriangleState = { type: 'invalid', errorMessages: [] };
 
@@ -58,6 +61,10 @@ const getTriangleErrors = (sides: TControlState): ITriangleState => {
   return result;
 };
 
+/**
+ * Valid triangles might have up to three unique side lenghts,
+ * get their type names based on the count of unique sides.
+ */
 const getValidTriangleType = (sides: TControlState): ITriangleState => {
   const uniqueTriangleSides = new Set(Object.values(sides));
 
@@ -71,10 +78,13 @@ const getValidTriangleType = (sides: TControlState): ITriangleState => {
   }
 };
 
+/**
+ * Get triangle type based on side lenghts, with errors if they exist.
+ */
 export const checkTriangleSides = (sides: TControlState): ITriangleState => {
-  if (hasIssueWithLengths(sides)) {
-    return getTriangleErrors(sides);
-  }
+  const errorResult = getTriangleErrors(sides);
+  // Encountered an error, return invalid type with messages.
+  if (errorResult.errorMessages.length) return errorResult;
 
   return getValidTriangleType(sides);
 };
