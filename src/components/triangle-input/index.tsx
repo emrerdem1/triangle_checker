@@ -41,6 +41,7 @@ const TriangleInputView: React.FC<ITriangleInputProps> = ({
       type="number"
       min={1}
       max={99}
+      name={side}
       parser={parseLengthInput}
       formatter={formatSpecialFloatChar}
       value={sideLength}

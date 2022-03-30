@@ -11,10 +11,10 @@ const TriangleScreen: React.FC = () => {
   );
 
   const updateTriangleStatus = (sides: TControlState) => {
-    const result = checkTriangleSides(sides);
+    const triangleResult = checkTriangleSides(sides);
     setTriangleData((prevState) => ({
       ...prevState,
-      ...result,
+      ...triangleResult,
     }));
   };
 
