@@ -1,11 +1,10 @@
 import { TControlState } from 'components/triangle-control/index.types';
-import { ITriangleState } from './index.types';
-
-interface IErrorMessageProps {
-  addend: string;
-  aggregative: string;
-  sum: string;
-}
+import {
+  IErrorMessageProps,
+  ITriangleKeyValuePair,
+  ITriangleState,
+  UniqueTriangleSizes,
+} from './index.types';
 
 const generateErrorMessage = ({
   addend,
@@ -14,59 +13,54 @@ const generateErrorMessage = ({
 }: IErrorMessageProps) =>
   `The sum of length of ${addend} and ${aggregative} must be greater than ${sum}'s.`;
 
-const convertSideLenghtsToNumber = (sides: TControlState): number[] =>
-  Object.values(sides).map((side) => Number(side));
+const formatSideLenghts = (sides: TControlState): ITriangleKeyValuePair[] =>
+  Object.entries(sides).map(([key, value]) => ({
+    name: key,
+    value: Number(value),
+  }));
 
 const hasIssueWithLengths = (sides: TControlState) => {
-  const [A, B, C] = convertSideLenghtsToNumber(sides);
-  return A > B + C || B > A + C || C > A + B;
+  const [A, B, C] = formatSideLenghts(sides);
+  return (
+    A.value > B.value + C.value ||
+    B.value > A.value + C.value ||
+    C.value > A.value + B.value
+  );
 };
 
-const getTriangleErrors = (sides: TControlState) => {
-  const result: ITriangleState = { type: null, errorMessages: [] };
-  const [A, B, C] = convertSideLenghtsToNumber(sides);
+const getTriangleErrors = (sides: TControlState): ITriangleState => {
+  const result: ITriangleState = { type: 'invalid', errorMessages: [] };
 
-  if (A > B + C) {
-    result.type = 'invalid';
-    const errorMessage = generateErrorMessage({
-      addend: 'B',
-      aggregative: 'C',
-      sum: 'A',
-    });
-    result.errorMessages?.push(errorMessage);
-  }
-  if (B > A + C) {
-    result.type = 'invalid';
-    const errorMessage = generateErrorMessage({
-      addend: 'A',
-      aggregative: 'C',
-      sum: 'B',
-    });
-    result.errorMessages?.push(errorMessage);
-  }
-  if (C > A + B) {
-    result.type = 'invalid';
-    const errorMessage = generateErrorMessage({
-      addend: 'A',
-      aggregative: 'B',
-      sum: 'C',
-    });
-    result.errorMessages?.push(errorMessage);
-  }
+  formatSideLenghts(sides).forEach((pair, _, pairArray) => {
+    const [secondSide, thirdSide] = pairArray.filter(
+      (remaining) => remaining.value !== pair.value
+    );
+    if (
+      pair.value >
+      [secondSide, thirdSide].reduce((acc, curr) => acc + curr.value, 0)
+    ) {
+      const errorMessage = generateErrorMessage({
+        sum: pair.name,
+        addend: secondSide.name,
+        aggregative: thirdSide.name,
+      });
+      result.errorMessages?.push(errorMessage);
+    }
+  });
   return result;
 };
 
 const getValidTriangleType = (sides: TControlState): ITriangleState => {
-  if (sides.A === sides.B && sides.B === sides.C) {
-    return { type: 'equilateral', errorMessages: null };
-  } else if (
-    sides.A === sides.B ||
-    sides.A === sides.C ||
-    sides.B === sides.C
-  ) {
-    return { type: 'isosceles', errorMessages: null };
+  const uniqueTriangleSides = new Set(Object.values(sides));
+
+  switch (uniqueTriangleSides.size) {
+    case UniqueTriangleSizes.EQUILATERAL:
+      return { type: 'equilateral', errorMessages: null };
+    case UniqueTriangleSizes.ISOSCELES:
+      return { type: 'isosceles', errorMessages: null };
+    default:
+      return { type: 'scalene', errorMessages: null };
   }
-  return { type: 'scalene', errorMessages: null };
 };
 
 export const checkTriangleSides = (sides: TControlState): ITriangleState => {

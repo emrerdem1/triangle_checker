@@ -19,10 +19,10 @@ const TriangleScreen: React.FC = () => {
   };
 
   return (
-    <div>
+    <>
       <TriangleControlView updateTriangleStatus={updateTriangleStatus} />
       <TriangleOutputView triangleData={triangleData} />
-    </div>
+    </>
   );
 };
 

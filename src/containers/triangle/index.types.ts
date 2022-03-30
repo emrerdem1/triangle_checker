@@ -17,3 +17,20 @@ export const INITIAL_TRIANGLE_DATA = {
   type: null,
   errorMessages: null,
 };
+
+export interface IErrorMessageProps {
+  addend: string;
+  aggregative: string;
+  sum: string;
+}
+
+export interface ITriangleKeyValuePair {
+  name: string;
+  value: number;
+}
+
+export enum UniqueTriangleSizes {
+  EQUILATERAL = 1,
+  ISOSCELES = 2,
+  SCALENE = 3,
+}
