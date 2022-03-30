@@ -33,7 +33,7 @@ const getTriangleErrors = (sides: TControlState): ITriangleState => {
 
   formatSideLenghts(sides).forEach((pair, _, pairArray) => {
     const [secondSide, thirdSide] = pairArray.filter(
-      (remaining) => remaining.value !== pair.value
+      (remaining) => remaining.name !== pair.name
     );
     if (
       pair.value >
