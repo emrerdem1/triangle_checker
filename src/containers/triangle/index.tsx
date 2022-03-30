@@ -2,27 +2,27 @@ import React, { useState } from 'react';
 import TriangleControlView from 'components/triangle-control';
 import TriangleOutputView from 'components/triangle-output';
 import { TControlState } from 'components/triangle-control/index.types';
-
-type TriangleTypes = 'equilateral' | 'isosceles' | 'scalene' | 'invalid';
-type TriangleStatus = 'valid'
-
-interface ITriangleDataState extends TControlState {
-  type: TriangleTypes;
-  status: boolean | null;
-  errorMessages: string[] | null;
-}
+import { INITIAL_TRIANGLE_DATA, TriangleDataSpec } from './index.types';
+import { checkTriangleSides } from './index.helper';
 
 const TriangleScreen: React.FC = () => {
-  const [triangleData, setTriangleData] = useState<ITriangleDataState>();
+  const [triangleData, setTriangleData] = useState<TriangleDataSpec>(
+    INITIAL_TRIANGLE_DATA
+  );
 
-  const validateTriangleSides = (sides: TControlState) => {
+  const updateTriangleStatus = (sides: TControlState) => {
     console.log(sides);
+    const result = checkTriangleSides(sides);
+    setTriangleData((prevState) => ({
+      ...prevState,
+      ...result,
+    }));
   };
 
   return (
     <div>
-      <TriangleControlView validateTriangleSides={validateTriangleSides} />
-      <TriangleOutputView />
+      <TriangleControlView updateTriangleStatus={updateTriangleStatus} />
+      <TriangleOutputView triangleData={triangleData} />
     </div>
   );
 };

@@ -13,11 +13,11 @@ import {
 import { hasValidInputs } from './index.helper';
 
 interface ITriangleControlViewProps {
-  validateTriangleSides: (sides: TControlState) => void;
+  updateTriangleStatus: (sides: TControlState) => void;
 }
 
 const TriangleControlView: React.FC<ITriangleControlViewProps> = ({
-  validateTriangleSides,
+  updateTriangleStatus,
 }) => {
   const [sideLenghts, setSideLenghts] = useState<TControlState>(
     INITIAL_CONTROL_STATE
@@ -29,6 +29,11 @@ const TriangleControlView: React.FC<ITriangleControlViewProps> = ({
     },
     [setSideLenghts]
   );
+
+  // TODO: Prevent submitting with the same values over and over again.
+  const submitTriangleInputs = () => {
+    updateTriangleStatus(sideLenghts);
+  };
 
   return (
     <CenteredContainerDiv verticalGutter={GutterSizes.MD}>
@@ -43,7 +48,7 @@ const TriangleControlView: React.FC<ITriangleControlViewProps> = ({
         <Button
           type="primary"
           disabled={hasValidInputs(sideLenghts)}
-          onClick={() => validateTriangleSides(sideLenghts)}
+          onClick={submitTriangleInputs}
         >
           Visualize
         </Button>

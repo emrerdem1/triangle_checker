@@ -10,7 +10,7 @@ interface ICenteredContainerProps {
 export const CenteredContainerDiv = styled.div<ICenteredContainerProps>`
   display: flex;
   justify-content: center;
-  max-width: 350px;
+  max-width: 370px;
   margin: 0 auto
     ${(props) => (props.verticalGutter == GutterSizes.MD ? '3.5em' : '5em')};
 `;

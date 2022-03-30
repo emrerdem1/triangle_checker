@@ -1,11 +1,22 @@
-import { CenteredContainerDiv } from 'components/common/styled';
+import { ITriangleState } from 'containers/triangle/index.types';
 import React from 'react';
+import ErrorMessagesView from './ErrorMessagesView';
+import { TriangleOutputDiv } from './index.styled';
 
-const TriangleOutputView: React.FC = () => {
+interface ITriangleOutputProps {
+  triangleData: ITriangleState;
+}
+
+const TriangleOutputView: React.FC<ITriangleOutputProps> = ({
+  triangleData,
+}) => {
   return (
-    <CenteredContainerDiv>
-      <h3>Result: {'-'}</h3>
-    </CenteredContainerDiv>
+    <TriangleOutputDiv>
+      <h3>Result: {triangleData.type || '-'}</h3>
+      {triangleData.errorMessages?.length && (
+        <ErrorMessagesView messages={triangleData.errorMessages} />
+      )}
+    </TriangleOutputDiv>
   );
 };
 

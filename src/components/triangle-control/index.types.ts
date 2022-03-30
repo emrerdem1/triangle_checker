@@ -1,15 +1,15 @@
 export enum TriangleSides {
-  A = 'sideA',
-  B = 'sideB',
-  C = 'sideC',
+  A = 'A',
+  B = 'B',
+  C = 'C',
 }
 
-export type TControlState = Record<TriangleSides, null | string>;
+export type TControlState = Record<TriangleSides, string>;
 
 export const INITIAL_CONTROL_STATE: TControlState = {
-  [TriangleSides.A]: null,
-  [TriangleSides.B]: null,
-  [TriangleSides.C]: null,
+  [TriangleSides.A]: '',
+  [TriangleSides.B]: '',
+  [TriangleSides.C]: '',
 };
 
 export interface ITriangleUpdateProps {
