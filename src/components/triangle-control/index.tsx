@@ -50,7 +50,7 @@ const TriangleControlView: React.FC<ITriangleControlViewProps> = ({
           disabled={hasValidInputs(sideLenghts)}
           onClick={submitTriangleInputs}
         >
-          Visualize
+          Check
         </Button>
       </InputGroup>
     </CenteredContainerDiv>

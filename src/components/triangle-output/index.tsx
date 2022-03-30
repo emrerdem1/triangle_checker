@@ -1,7 +1,7 @@
 import { ITriangleState } from 'containers/triangle/index.types';
 import React from 'react';
 import ErrorMessagesView from './ErrorMessagesView';
-import { TriangleOutputDiv } from './index.styled';
+import { TriangleOutputDiv, TriangleResultSpan } from './index.styled';
 
 interface ITriangleOutputProps {
   triangleData: ITriangleState;
@@ -10,12 +10,17 @@ interface ITriangleOutputProps {
 const TriangleOutputView: React.FC<ITriangleOutputProps> = ({
   triangleData,
 }) => {
+  const hasError = !!triangleData.errorMessages?.length;
+
   return (
     <TriangleOutputDiv>
-      <h3>Result: {triangleData.type || '-'}</h3>
-      {triangleData.errorMessages?.length && (
-        <ErrorMessagesView messages={triangleData.errorMessages} />
-      )}
+      <h3>
+        Result:{' '}
+        <TriangleResultSpan hasError={hasError}>
+          {triangleData.type}
+        </TriangleResultSpan>
+      </h3>
+      {hasError && <ErrorMessagesView messages={triangleData.errorMessages!} />}
     </TriangleOutputDiv>
   );
 };

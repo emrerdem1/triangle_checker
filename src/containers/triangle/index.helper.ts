@@ -12,12 +12,21 @@ const generateErrorMessage = ({
   aggregative,
   sum,
 }: IErrorMessageProps) =>
-  `The sum of length of ${addend} and ${aggregative} must be greated than ${sum}`;
+  `The sum of length of ${addend} and ${aggregative} must be greater than ${sum}'s.`;
 
-export const checkTriangleSides = (sides: TControlState): ITriangleState => {
+const convertSideLenghtsToNumber = (sides: TControlState): number[] =>
+  Object.values(sides).map((side) => Number(side));
+
+const hasIssueWithLengths = (sides: TControlState) => {
+  const [A, B, C] = convertSideLenghtsToNumber(sides);
+  return A > B + C || B > A + C || C > A + B;
+};
+
+const getTriangleErrors = (sides: TControlState) => {
   const result: ITriangleState = { type: null, errorMessages: [] };
+  const [A, B, C] = convertSideLenghtsToNumber(sides);
 
-  if (sides.A > sides.B + sides.C) {
+  if (A > B + C) {
     result.type = 'invalid';
     const errorMessage = generateErrorMessage({
       addend: 'B',
@@ -26,7 +35,7 @@ export const checkTriangleSides = (sides: TControlState): ITriangleState => {
     });
     result.errorMessages?.push(errorMessage);
   }
-  if (sides.B > sides.A + sides.C) {
+  if (B > A + C) {
     result.type = 'invalid';
     const errorMessage = generateErrorMessage({
       addend: 'A',
@@ -35,7 +44,7 @@ export const checkTriangleSides = (sides: TControlState): ITriangleState => {
     });
     result.errorMessages?.push(errorMessage);
   }
-  if (sides.C > sides.A + sides.B) {
+  if (C > A + B) {
     result.type = 'invalid';
     const errorMessage = generateErrorMessage({
       addend: 'A',
@@ -44,6 +53,26 @@ export const checkTriangleSides = (sides: TControlState): ITriangleState => {
     });
     result.errorMessages?.push(errorMessage);
   }
-
   return result;
+};
+
+const getValidTriangleType = (sides: TControlState): ITriangleState => {
+  if (sides.A === sides.B && sides.B === sides.C) {
+    return { type: 'equilateral', errorMessages: null };
+  } else if (
+    sides.A === sides.B ||
+    sides.A === sides.C ||
+    sides.B === sides.C
+  ) {
+    return { type: 'isosceles', errorMessages: null };
+  }
+  return { type: 'scalene', errorMessages: null };
+};
+
+export const checkTriangleSides = (sides: TControlState): ITriangleState => {
+  if (hasIssueWithLengths(sides)) {
+    return getTriangleErrors(sides);
+  }
+
+  return getValidTriangleType(sides);
 };
