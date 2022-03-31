@@ -1,12 +1,9 @@
+import React, { useState, useEffect } from 'react';
 import { valueType } from 'antd/lib/statistic/utils';
 import {
   ITriangleUpdateProps,
   TriangleSides,
 } from 'components/triangle-control/index.types';
-import React from 'react';
-
-import { useState } from 'react';
-import { useEffect } from 'react';
 import {
   formatSpecialFloatChar,
   getLengthValue,
@@ -32,20 +29,21 @@ const TriangleInputView: React.FC<ITriangleInputProps> = ({
     updateTriangleSide({ side, lenght: sideLength });
   }, [sideLength, setSideLength]);
 
-  const updateSideLength = (length: valueType) => {
-    setSideLength(getLengthValue(length));
+  const updateSideLength = (value: valueType) => {
+    setSideLength(getLengthValue(value));
   };
 
   return (
     <TriangleInput
       type="number"
       min={1}
-      max={99}
+      max={99999}
+      keyboard={true}
       name={side}
       parser={parseLengthInput}
       formatter={formatSpecialFloatChar}
       value={sideLength}
-      onChange={(length) => updateSideLength(length)}
+      onChange={(value) => updateSideLength(value)}
     />
   );
 };

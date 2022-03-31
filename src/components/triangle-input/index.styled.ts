@@ -30,8 +30,4 @@ export const TriangleInput = styled(InputNumber)<ITriangleInputProps>`
     top: -2.8rem;
     font-size: 1.1rem;
   }
-
-  .ant-input-number-input {
-    text-align: center;
-  }
 `;

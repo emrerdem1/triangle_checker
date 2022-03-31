@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { Button } from 'antd';
+import { Button, Tooltip } from 'antd';
 import { InputGroup } from './index.styled';
 import TriangleInputView from '../triangle-input';
 import { CenteredContainerDiv } from 'components/common/styled';
@@ -11,6 +11,8 @@ import {
   TriangleSides,
 } from './index.types';
 import { hasInvalidInput } from './index.helper';
+
+const EMPTY_INPUT_TEXT = 'Type a valid value to check the triangle.';
 
 interface ITriangleControlViewProps {
   updateTriangleStatus: (sides: TControlState) => void;
@@ -35,6 +37,8 @@ const TriangleControlView: React.FC<ITriangleControlViewProps> = ({
     updateTriangleStatus(sideLenghts);
   };
 
+  const isInvalid = hasInvalidInput(sideLenghts);
+
   return (
     <CenteredContainerDiv verticalGutter={GutterSizes.MD}>
       <InputGroup compact>
@@ -45,13 +49,15 @@ const TriangleControlView: React.FC<ITriangleControlViewProps> = ({
             updateTriangleSide={updateTriangleSide}
           />
         ))}
-        <Button
-          type="primary"
-          disabled={hasInvalidInput(sideLenghts)}
-          onClick={submitTriangleInputs}
-        >
-          Check
-        </Button>
+        <Tooltip placement="right" title={isInvalid && EMPTY_INPUT_TEXT}>
+          <Button
+            type="primary"
+            disabled={isInvalid}
+            onClick={submitTriangleInputs}
+          >
+            Check
+          </Button>
+        </Tooltip>
       </InputGroup>
     </CenteredContainerDiv>
   );
