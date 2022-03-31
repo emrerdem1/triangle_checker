@@ -1,3 +1,7 @@
+### See a demo
+
+[Triangle Checker](https://triangle-checker.netlify.app/)
+
 ### Triangle challenge (TS UI)
 
 Write a program that will determine the type of a triangle. It should take the lengths of the triangle’s three edges as input, and return whether the triangle is equilateral, isosceles or scalene.
