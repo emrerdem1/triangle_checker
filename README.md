@@ -14,7 +14,11 @@ The resulting code and discussion is vital for us and will be used as a way for 
 
 ## How to run in local environment
 
-You should run the following commands respectively:
+Install pre-commit hook to not skip tests while committing new changes. Note: There might be a Jenkins pipeline that is responsible of checking lint and tests in the future.
+
+- `yarn prepare`
+
+Then execute the following commands to install the dependencies and start the project:
 
 - `yarn install`
 
