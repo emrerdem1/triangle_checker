@@ -10,7 +10,7 @@ import {
   ITriangleUpdateProps,
   TriangleSides,
 } from './index.types';
-import { hasValidInputs } from './index.helper';
+import { hasInvalidInput } from './index.helper';
 
 interface ITriangleControlViewProps {
   updateTriangleStatus: (sides: TControlState) => void;
@@ -47,7 +47,7 @@ const TriangleControlView: React.FC<ITriangleControlViewProps> = ({
         ))}
         <Button
           type="primary"
-          disabled={hasValidInputs(sideLenghts)}
+          disabled={hasInvalidInput(sideLenghts)}
           onClick={submitTriangleInputs}
         >
           Check

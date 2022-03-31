@@ -5,7 +5,7 @@ import { valueType } from 'antd/lib/statistic/utils';
  * Replace them with a static text that will not be parsed by number input.
  * Issue @link => https://github.com/ant-design/ant-design/issues/27014#issuecomment-703768777
  */
-const EMPTY_FLOATING_POINT_TEXT = 'EMPTY';
+export const EMPTY_FLOATING_POINT_TEXT = 'EMPTY';
 
 export const parseLengthInput = (value: string | undefined): string => {
   // It is a valid number, accept it.
@@ -19,7 +19,9 @@ export const getLengthValue = (length: valueType): string => {
   return length.toString();
 };
 
-export const formatSpecialFloatChar = (value: valueType | undefined) => {
-  if (!value || value == 'e') return EMPTY_FLOATING_POINT_TEXT;
+export const formatSpecialFloatChar = (
+  value: valueType | undefined
+): string => {
+  if (!value || /e/i.test(value.toString())) return EMPTY_FLOATING_POINT_TEXT;
   return value.toString();
 };
