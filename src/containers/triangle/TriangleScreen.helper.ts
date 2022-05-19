@@ -1,10 +1,10 @@
-import { TControlState } from 'components/triangle-control/index.types';
+import { TControlState } from 'components/triangle-control/TriangleControlView.types';
 import {
   IErrorMessageProps,
   ITriangleKeyValuePair,
   ITriangleState,
   UniqueTriangleSizes,
-} from './index.types';
+} from './TriangleScreen.types';
 
 /**
  * Generate boilerplate explanation of the cause of errors.

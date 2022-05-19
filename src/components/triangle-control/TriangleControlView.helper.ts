@@ -1,4 +1,4 @@
-import { TControlState } from './index.types';
+import { TControlState } from './TriangleControlView.types';
 
 /**
  * Each input must have contain valid entries, the length of sides.

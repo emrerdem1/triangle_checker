@@ -1,7 +1,7 @@
 import {
   EMPTY_FLOATING_POINT_TEXT,
   formatSpecialFloatChar,
-} from './index.helper';
+} from './TriangleInputView.helper';
 
 describe('formatSpecialFloatChar() should handle special characters', () => {
   it('should return default string when invalid or special character is typed in', () => {

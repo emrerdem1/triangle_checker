@@ -1,14 +1,14 @@
 import {
   generateTriangle,
   getMultipleTriangle,
-} from 'components/common/tests.hepler';
+} from 'components/common/tests.helper';
 import {
   formatSideLenghts,
   getCertainSideError,
   checkTriangleErrors,
   getValidTriangleType,
-} from './index.helper';
-import { ITriangleKeyValuePair } from './index.types';
+} from './TriangleScreen.helper';
+import { ITriangleKeyValuePair } from './TriangleScreen.types';
 
 const _getTriangleKeyValuePairs = (
   name: string,

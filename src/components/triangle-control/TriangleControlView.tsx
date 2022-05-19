@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Button, Tooltip } from 'antd';
-import { InputGroup } from './index.styled';
-import TriangleInputView from '../triangle-input';
+import { InputGroup } from './TriangleControlView.styled';
+import TriangleInputView from '../triangle-input/TriangleInputView';
 import { CenteredContainerDiv } from 'components/common/styled';
 import { GutterSizes } from 'utils/constants';
 import {
@@ -9,8 +9,8 @@ import {
   INITIAL_CONTROL_STATE,
   ITriangleUpdateProps,
   TriangleSides,
-} from './index.types';
-import { hasInvalidInput } from './index.helper';
+} from './TriangleControlView.types';
+import { hasInvalidInput } from './TriangleControlView.helper';
 
 const EMPTY_INPUT_TEXT = 'Type a valid value to check the triangle.';
 

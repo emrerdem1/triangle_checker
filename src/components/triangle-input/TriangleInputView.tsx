@@ -3,13 +3,13 @@ import { valueType } from 'antd/lib/statistic/utils';
 import {
   ITriangleUpdateProps,
   TriangleSides,
-} from 'components/triangle-control/index.types';
+} from 'components/triangle-control/TriangleControlView.types';
 import {
   formatSpecialFloatChar,
   getLengthValue,
   parseLengthInput,
-} from './index.helper';
-import { TriangleInput } from './index.styled';
+} from './TriangleInputView.helper';
+import { TriangleInput } from './TriangleInputView.styled';
 
 interface ITriangleInputProps {
   side: TriangleSides;

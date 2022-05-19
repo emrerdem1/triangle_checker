@@ -1,7 +1,7 @@
 import {
   INITIAL_CONTROL_STATE,
   TControlState,
-} from 'components/triangle-control/index.types';
+} from 'components/triangle-control/TriangleControlView.types';
 
 export type TriangleTypes = 'equilateral' | 'isosceles' | 'scalene' | 'invalid';
 

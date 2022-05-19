@@ -1,7 +1,10 @@
-import { ITriangleState } from 'containers/triangle/index.types';
+import { ITriangleState } from 'containers/triangle/TriangleScreen.types';
 import React from 'react';
 import ErrorMessagesView from './ErrorMessagesView';
-import { TriangleOutputDiv, TriangleResultSpan } from './index.styled';
+import {
+  TriangleOutputDiv,
+  TriangleResultSpan,
+} from './TriangleOutputView.styled';
 
 interface ITriangleOutputProps {
   triangleData: ITriangleState;

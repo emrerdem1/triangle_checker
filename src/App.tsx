@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import TriangleScreen from './containers/triangle';
-import InformationView from './components/information';
+import TriangleScreen from './containers/triangle/TriangleScreen';
+import InformationView from './components/information/InformationView';
 
 const LayoutDiv = styled.div`
   padding: 2em;

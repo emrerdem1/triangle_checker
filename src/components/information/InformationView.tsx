@@ -1,5 +1,5 @@
 import React from 'react';
-import { InformationDiv } from './index.styled';
+import { InformationDiv } from './InformationView.styled';
 
 const InformationView: React.FC = () => {
   return (

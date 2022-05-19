@@ -1,7 +1,7 @@
 import {
   TControlState,
   TriangleSides,
-} from 'components/triangle-control/index.types';
+} from 'components/triangle-control/TriangleControlView.types';
 
 export const generateTriangle = ([A, B, C]: string[]): TControlState => ({
   [TriangleSides.A]: A,

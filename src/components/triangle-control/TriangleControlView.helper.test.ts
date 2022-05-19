@@ -1,5 +1,5 @@
-import { getMultipleTriangle } from 'components/common/tests.hepler';
-import { hasInvalidInput } from './index.helper';
+import { getMultipleTriangle } from 'components/common/tests.helper';
+import { hasInvalidInput } from './TriangleControlView.helper';
 
 describe('hasInvalidInput() should detect whether entries are valid or not', () => {
   it('should return true when any input has invalid value as string', () => {

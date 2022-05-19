@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import TriangleControlView from 'components/triangle-control';
-import TriangleOutputView from 'components/triangle-output';
-import { TControlState } from 'components/triangle-control/index.types';
-import { INITIAL_TRIANGLE_DATA, TriangleDataSpec } from './index.types';
-import { checkTriangleSides } from './index.helper';
+import TriangleControlView from 'components/triangle-control/TriangleControlView';
+import TriangleOutputView from 'components/triangle-output/TriangleOutputView';
+import { TControlState } from 'components/triangle-control/TriangleControlView.types';
+import { INITIAL_TRIANGLE_DATA, TriangleDataSpec } from './TriangleScreen.types';
+import { checkTriangleSides } from './TriangleScreen.helper';
 
 const TriangleScreen: React.FC = () => {
   const [triangleData, setTriangleData] = useState<TriangleDataSpec>(
