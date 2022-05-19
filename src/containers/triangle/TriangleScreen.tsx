@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import TriangleControlView from 'components/triangle-control/TriangleControlView';
 import TriangleOutputView from 'components/triangle-output/TriangleOutputView';
 import { TControlState } from 'components/triangle-control/TriangleControlView.types';
-import { INITIAL_TRIANGLE_DATA, TriangleDataSpec } from './TriangleScreen.types';
+import {
+  INITIAL_TRIANGLE_DATA,
+  TriangleDataSpec,
+} from './TriangleScreen.types';
 import { checkTriangleSides } from './TriangleScreen.helper';
 
 const TriangleScreen: React.FC = () => {
@@ -10,13 +13,16 @@ const TriangleScreen: React.FC = () => {
     INITIAL_TRIANGLE_DATA
   );
 
-  const updateTriangleStatus = (sides: TControlState) => {
-    const triangleResult = checkTriangleSides(sides);
-    setTriangleData((prevState) => ({
-      ...prevState,
-      ...triangleResult,
-    }));
-  };
+  const updateTriangleStatus = useCallback(
+    (sides: TControlState) => {
+      const triangleResult = checkTriangleSides(sides);
+      setTriangleData((prevState) => ({
+        ...prevState,
+        ...triangleResult,
+      }));
+    },
+    [setTriangleData, checkTriangleSides]
+  );
 
   return (
     <>

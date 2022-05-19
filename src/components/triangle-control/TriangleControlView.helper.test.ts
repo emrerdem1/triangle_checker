@@ -1,7 +1,7 @@
 import { getMultipleTriangle } from 'components/common/tests.helper';
-import { hasInvalidInput } from './TriangleControlView.helper';
+import { isAnyInputInvalid } from './TriangleControlView.helper';
 
-describe('hasInvalidInput() should detect whether entries are valid or not', () => {
+describe('isAnyInputInvalid() should detect whether entries are valid or not', () => {
   it('should return true when any input has invalid value as string', () => {
     const invalidTriangleInputs = getMultipleTriangle([
       ['', '1', '2'],
@@ -12,7 +12,7 @@ describe('hasInvalidInput() should detect whether entries are valid or not', () 
       ['null', '6', '7'],
     ]);
     invalidTriangleInputs.forEach((inputs) =>
-      expect(hasInvalidInput(inputs)).toBeTruthy()
+      expect(isAnyInputInvalid(inputs)).toBeTruthy()
     );
   });
 
@@ -23,7 +23,7 @@ describe('hasInvalidInput() should detect whether entries are valid or not', () 
       ['16', '27', '38'],
     ]);
     validTriangleInputs.forEach((inputs) =>
-      expect(hasInvalidInput(inputs)).toBeFalsy()
+      expect(isAnyInputInvalid(inputs)).toBeFalsy()
     );
   });
 });

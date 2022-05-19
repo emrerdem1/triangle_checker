@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Button, Tooltip } from 'antd';
 import { InputGroup } from './TriangleControlView.styled';
 import TriangleInputView from '../triangle-input/TriangleInputView';
@@ -10,7 +10,7 @@ import {
   ITriangleUpdateProps,
   TriangleSides,
 } from './TriangleControlView.types';
-import { hasInvalidInput } from './TriangleControlView.helper';
+import { isAnyInputInvalid } from './TriangleControlView.helper';
 
 const EMPTY_INPUT_TEXT = 'Type a valid value to check the triangle.';
 
@@ -24,6 +24,11 @@ const TriangleControlView: React.FC<ITriangleControlViewProps> = ({
   const [sideLenghts, setSideLenghts] = useState<TControlState>(
     INITIAL_CONTROL_STATE
   );
+  const [hasInvalidInput, setHasInvalidInput] = useState<boolean>(true);
+
+  useEffect(() => {
+    setHasInvalidInput(isAnyInputInvalid(sideLenghts));
+  }, [sideLenghts]);
 
   const updateTriangleSide = useCallback(
     ({ side, lenght }: ITriangleUpdateProps) => {
@@ -37,8 +42,6 @@ const TriangleControlView: React.FC<ITriangleControlViewProps> = ({
     updateTriangleStatus(sideLenghts);
   };
 
-  const isInvalid = hasInvalidInput(sideLenghts);
-
   return (
     <CenteredContainerDiv verticalGutter={GutterSizes.MD}>
       <InputGroup compact>
@@ -49,10 +52,10 @@ const TriangleControlView: React.FC<ITriangleControlViewProps> = ({
             updateTriangleSide={updateTriangleSide}
           />
         ))}
-        <Tooltip placement="right" title={isInvalid && EMPTY_INPUT_TEXT}>
+        <Tooltip placement="right" title={hasInvalidInput && EMPTY_INPUT_TEXT}>
           <Button
             type="primary"
-            disabled={isInvalid}
+            disabled={hasInvalidInput}
             onClick={submitTriangleInputs}
           >
             Check
@@ -63,4 +66,4 @@ const TriangleControlView: React.FC<ITriangleControlViewProps> = ({
   );
 };
 
-export default TriangleControlView;
+export default React.memo(TriangleControlView);

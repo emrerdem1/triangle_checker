@@ -27,7 +27,7 @@ const TriangleInputView: React.FC<ITriangleInputProps> = ({
    */
   useEffect(() => {
     updateTriangleSide({ side, lenght: sideLength });
-  }, [sideLength, setSideLength]);
+  }, [sideLength]);
 
   const updateSideLength = (value: valueType) => {
     setSideLength(getLengthValue(value));
@@ -48,4 +48,4 @@ const TriangleInputView: React.FC<ITriangleInputProps> = ({
   );
 };
 
-export default TriangleInputView;
+export default React.memo(TriangleInputView);
