@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { valueType } from 'antd/lib/statistic/utils';
 import {
   ITriangleUpdateProps,
@@ -29,9 +29,12 @@ const TriangleInputView: React.FC<ITriangleInputProps> = ({
     updateTriangleSide({ side, lenght: sideLength });
   }, [sideLength]);
 
-  const updateSideLength = (value: valueType) => {
-    setSideLength(getLengthValue(value));
-  };
+  const updateSideLength = useCallback(
+    (value: valueType) => {
+      setSideLength(getLengthValue(value));
+    },
+    [setSideLength]
+  );
 
   return (
     <TriangleInput

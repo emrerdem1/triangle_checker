@@ -26,7 +26,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test:prod": "CI=true react-scripts test",
+    "test:prod": "react-scripts test --watchAll=false",
     "test:dev": "react-scripts test --watchAll",
     "eject": "react-scripts eject",
     "prepare": "husky install"
