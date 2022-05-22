@@ -60,7 +60,7 @@ export const checkTriangleErrors = (sides: TControlState): ITriangleState => {
     const certainSideError = getCertainSideError(pair, pairArray);
     if (certainSideError) {
       const errorMessage = generateErrorMessage(certainSideError);
-      result.errorMessages?.push(errorMessage);
+      result.errorMessages.push(errorMessage);
     }
   });
   return result;

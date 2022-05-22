@@ -13,21 +13,21 @@ const TriangleScreen: React.FC = () => {
     INITIAL_TRIANGLE_DATA
   );
 
-  const updateTriangleStatus = useCallback(
-    (sides: TControlState) => {
-      const triangleResult = checkTriangleSides(sides);
-      setTriangleData((prevState) => ({
-        ...prevState,
-        ...triangleResult,
-      }));
-    },
-    [setTriangleData, checkTriangleSides]
-  );
+  const updateTriangleStatus = useCallback((sides: TControlState) => {
+    const triangleResult = checkTriangleSides(sides);
+    setTriangleData((prevState) => ({
+      ...prevState,
+      ...triangleResult,
+    }));
+  }, []);
 
   return (
     <>
       <TriangleControlView updateTriangleStatus={updateTriangleStatus} />
-      <TriangleOutputView triangleData={triangleData} />
+      <TriangleOutputView
+        type={triangleData.type}
+        errorMessages={triangleData.errorMessages}
+      />
     </>
   );
 };

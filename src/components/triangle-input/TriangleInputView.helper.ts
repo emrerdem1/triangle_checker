@@ -1,5 +1,9 @@
 import { valueType } from 'antd/lib/statistic/utils';
 
+export enum TriangleLimit {
+  MIN = 1,
+  MAX = 99999,
+}
 /**
  * "e" or "E" characters are considered as valid floating point numbers.
  * Replace them with a static text that will not be parsed by number input.

@@ -8,6 +8,7 @@ import {
   formatSpecialFloatChar,
   getLengthValue,
   parseLengthInput,
+  TriangleLimit,
 } from './TriangleInputView.helper';
 import { TriangleInput } from './TriangleInputView.styled';
 
@@ -22,25 +23,19 @@ const TriangleInputView: React.FC<ITriangleInputProps> = ({
 }) => {
   const [sideLength, setSideLength] = useState<string>('');
 
-  /**
-   * Lift updated triangle value to controller after every change.
-   */
   useEffect(() => {
     updateTriangleSide({ side, lenght: sideLength });
-  }, [sideLength]);
+  }, [side, sideLength, updateTriangleSide]);
 
-  const updateSideLength = useCallback(
-    (value: valueType) => {
-      setSideLength(getLengthValue(value));
-    },
-    [setSideLength]
-  );
+  const updateSideLength = useCallback((value: valueType) => {
+    setSideLength(getLengthValue(value));
+  }, []);
 
   return (
     <TriangleInput
       type="number"
-      min={1}
-      max={99999}
+      min={TriangleLimit.MIN}
+      max={TriangleLimit.MAX}
       keyboard={true}
       name={side}
       parser={parseLengthInput}

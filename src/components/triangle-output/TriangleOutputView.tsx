@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ITriangleState } from 'containers/triangle/TriangleScreen.types';
+import { TriangleTypes } from 'containers/triangle/TriangleScreen.types';
 import ErrorMessagesView from './ErrorMessagesView';
 import {
   TriangleOutputDiv,
@@ -7,27 +7,27 @@ import {
 } from './TriangleOutputView.styled';
 
 interface ITriangleOutputProps {
-  triangleData: ITriangleState;
+  type: TriangleTypes | null;
+  errorMessages: string[];
 }
 
 const TriangleOutputView: React.FC<ITriangleOutputProps> = ({
-  triangleData,
+  type,
+  errorMessages,
 }) => {
   const [hasError, setHasError] = useState<boolean>(false);
 
   useEffect(() => {
-    setHasError(!!triangleData.errorMessages?.length);
-  }, [triangleData]);
+    setHasError(!!errorMessages.length);
+  }, [errorMessages.length]);
 
   return (
     <TriangleOutputDiv>
       <h3>
         Result:{' '}
-        <TriangleResultSpan hasError={hasError}>
-          {triangleData.type}
-        </TriangleResultSpan>
+        <TriangleResultSpan hasError={hasError}>{type}</TriangleResultSpan>
       </h3>
-      {hasError && <ErrorMessagesView messages={triangleData.errorMessages} />}
+      {hasError && <ErrorMessagesView messages={errorMessages} />}
     </TriangleOutputDiv>
   );
 };

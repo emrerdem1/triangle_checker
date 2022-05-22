@@ -6,13 +6,12 @@ import { CenteredContainerDiv } from 'components/common/styled';
 import { GutterSizes } from 'utils/constants';
 import {
   TControlState,
+  EMPTY_INPUT_TEXT,
   INITIAL_CONTROL_STATE,
   ITriangleUpdateProps,
   TriangleSides,
 } from './TriangleControlView.types';
 import { isAnyInputInvalid } from './TriangleControlView.helper';
-
-const EMPTY_INPUT_TEXT = 'Type a valid value to check the triangle.';
 
 interface ITriangleControlViewProps {
   updateTriangleStatus: (sides: TControlState) => void;
@@ -34,7 +33,7 @@ const TriangleControlView: React.FC<ITriangleControlViewProps> = ({
     ({ side, lenght }: ITriangleUpdateProps) => {
       setSideLenghts((prevState) => ({ ...prevState, [side]: lenght }));
     },
-    [setSideLenghts]
+    []
   );
 
   // TODO: Prevent submitting with the same values over and over again.
