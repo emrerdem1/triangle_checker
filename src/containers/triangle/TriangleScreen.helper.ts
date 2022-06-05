@@ -28,6 +28,21 @@ export const formatSideLenghts = (
   }));
 
 /**
+ * Size of an edge of a triangle must be equal or greater than
+ * the sum of the other two edges. Check whether the edge is valid.
+ */
+const isEdgeValid = (
+  comparedSide: ITriangleKeyValuePair,
+  remainingSides: ITriangleKeyValuePair[]
+) => {
+  const sumOfRemainingSides = remainingSides.reduce(
+    (acc, side) => acc + side.value,
+    0
+  );
+  return comparedSide.value >= sumOfRemainingSides;
+};
+
+/**
  * Compare one side to the given remaining sides to identicate the root of cause.
  */
 export const getCertainSideError = (
@@ -37,10 +52,7 @@ export const getCertainSideError = (
   const [secondSide, thirdSide] = allSides.filter(
     (side) => side.name !== comparedSide.name
   );
-  if (
-    comparedSide.value >=
-    [secondSide, thirdSide].reduce((acc, curr) => acc + curr.value, 0)
-  ) {
+  if (isEdgeValid(comparedSide, [secondSide, thirdSide])) {
     return {
       sum: comparedSide.name,
       addend: secondSide.name,

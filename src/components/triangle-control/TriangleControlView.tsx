@@ -1,17 +1,15 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { Button, Tooltip } from 'antd';
+import React, { useState, useCallback } from 'react';
 import { InputGroup } from './TriangleControlView.styled';
 import TriangleInputView from '../triangle-input/TriangleInputView';
 import { CenteredContainerDiv } from 'components/common/styled';
 import { GutterSizes } from 'utils/constants';
 import {
   TControlState,
-  EMPTY_INPUT_TEXT,
   INITIAL_CONTROL_STATE,
   ITriangleUpdateProps,
   TriangleSides,
 } from './TriangleControlView.types';
-import { isAnyInputInvalid } from './TriangleControlView.helper';
+import TriangleCheckView from './TriangleCheckView';
 
 interface ITriangleControlViewProps {
   updateTriangleStatus: (sides: TControlState) => void;
@@ -23,11 +21,6 @@ const TriangleControlView: React.FC<ITriangleControlViewProps> = ({
   const [sideLenghts, setSideLenghts] = useState<TControlState>(
     INITIAL_CONTROL_STATE
   );
-  const [hasInvalidInput, setHasInvalidInput] = useState<boolean>(true);
-
-  useEffect(() => {
-    setHasInvalidInput(isAnyInputInvalid(sideLenghts));
-  }, [sideLenghts]);
 
   const updateTriangleSide = useCallback(
     ({ side, lenght }: ITriangleUpdateProps) => {
@@ -35,11 +28,6 @@ const TriangleControlView: React.FC<ITriangleControlViewProps> = ({
     },
     []
   );
-
-  // TODO: Prevent submitting with the same values over and over again.
-  const submitTriangleInputs = () => {
-    updateTriangleStatus(sideLenghts);
-  };
 
   return (
     <CenteredContainerDiv verticalGutter={GutterSizes.MD}>
@@ -51,15 +39,10 @@ const TriangleControlView: React.FC<ITriangleControlViewProps> = ({
             updateTriangleSide={updateTriangleSide}
           />
         ))}
-        <Tooltip placement="right" title={hasInvalidInput && EMPTY_INPUT_TEXT}>
-          <Button
-            type="primary"
-            disabled={hasInvalidInput}
-            onClick={submitTriangleInputs}
-          >
-            Check
-          </Button>
-        </Tooltip>
+        <TriangleCheckView
+          sideLenghts={sideLenghts}
+          updateTriangleStatus={updateTriangleStatus}
+        />
       </InputGroup>
     </CenteredContainerDiv>
   );

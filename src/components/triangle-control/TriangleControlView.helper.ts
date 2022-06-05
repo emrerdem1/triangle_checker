@@ -5,3 +5,12 @@ import { TControlState } from './TriangleControlView.types';
  */
 export const isAnyInputInvalid = (sideLenghts: TControlState) =>
   !Object.values(sideLenghts).every((len) => Number(len) > 0);
+
+/**
+ * Prevent submitting with the same inputs consecutively.
+ */
+export const shouldSubmitInputs = (
+  currentInputs: TControlState,
+  lastSubmittedInputs: TControlState
+): boolean =>
+  JSON.stringify(currentInputs) !== JSON.stringify(lastSubmittedInputs);

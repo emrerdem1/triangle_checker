@@ -1,5 +1,8 @@
 import { getMultipleTriangle } from 'components/common/tests.helper';
-import { isAnyInputInvalid } from './TriangleControlView.helper';
+import {
+  isAnyInputInvalid,
+  shouldSubmitInputs,
+} from './TriangleControlView.helper';
 
 describe('isAnyInputInvalid() should detect whether entries are valid or not', () => {
   it('should return true when any input has invalid value as string', () => {
@@ -12,7 +15,7 @@ describe('isAnyInputInvalid() should detect whether entries are valid or not', (
       ['null', '6', '7'],
     ]);
     invalidTriangleInputs.forEach((inputs) =>
-      expect(isAnyInputInvalid(inputs)).toBeTruthy()
+      expect(isAnyInputInvalid(inputs)).toBe(true)
     );
   });
 
@@ -23,7 +26,31 @@ describe('isAnyInputInvalid() should detect whether entries are valid or not', (
       ['16', '27', '38'],
     ]);
     validTriangleInputs.forEach((inputs) =>
-      expect(isAnyInputInvalid(inputs)).toBeFalsy()
+      expect(isAnyInputInvalid(inputs)).toBe(false)
     );
+  });
+});
+
+describe('shouldSubmitInputs() should tell if submittion action is needed or not', () => {
+  it('should return true when new input values are different than last submitted ones', () => {
+    const inputValues = getMultipleTriangle([
+      // Current input values.
+      ['1', '2', '2'],
+      // Last submitted input values.
+      ['3', '2', '2'],
+    ]);
+
+    expect(shouldSubmitInputs(inputValues[0], inputValues[1])).toBe(true);
+  });
+
+  it('should return true when new input values are the same with last submitted ones', () => {
+    const inputValues = getMultipleTriangle([
+      // Current input values.
+      ['5', '11', '8'],
+      // Last submitted input values.
+      ['5', '11', '8'],
+    ]);
+
+    expect(shouldSubmitInputs(inputValues[0], inputValues[1])).toBe(false);
   });
 });
