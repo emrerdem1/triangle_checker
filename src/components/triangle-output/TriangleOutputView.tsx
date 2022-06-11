@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { TriangleTypes } from 'containers/triangle/TriangleScreen.types';
 import ErrorMessagesView from './ErrorMessagesView';
 import {
@@ -15,11 +15,10 @@ const TriangleOutputView: React.FC<ITriangleOutputProps> = ({
   type,
   errorMessages,
 }) => {
-  const [hasError, setHasError] = useState<boolean>(false);
-
-  useEffect(() => {
-    setHasError(!!errorMessages.length);
-  }, [errorMessages.length]);
+  const hasError = useMemo(
+    () => errorMessages.length > 0,
+    [errorMessages.length]
+  );
 
   return (
     <TriangleOutputDiv>
